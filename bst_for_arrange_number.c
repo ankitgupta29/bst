@@ -6,6 +6,7 @@ typedef struct node* nodeptr;
 struct node
 {
 	int data;
+    int count;
 	nodeptr left;
 	nodeptr right;
 };
@@ -17,18 +18,21 @@ nodeptr add_node(struct node *head, int value)
 		head = malloc(sizeof(nodeptr));
 		head->left = head->right = NULL;
 		head->data = value;
+        head->count = 1;
 		return head;
 	}
 
 	nodeptr current = head;
 	nodeptr temp = malloc(sizeof(nodeptr));
 	temp->left = temp->right = NULL;
+    temp->count = 1;
 	temp->data = value;
 
 	while (current)
 	{
 		if (current->data == value) {
-			printf("Node with Value: %d already present in tree\n", value);
+			printf("Node with Value: %d already present in tree, so increment count\n", value);
+            current->count++;
 			break;
 		}
 
@@ -59,7 +63,7 @@ void print_inorder(nodeptr head)
 	if (!head)
 		return;
 	print_inorder(head->left);
-	printf("%d ", head->data);
+	printf("%d [%d] ", head->data, head->count);
 	print_inorder(head->right);
 }
 
@@ -84,10 +88,12 @@ void print_postorder(nodeptr head)
 nodeptr search_node(nodeptr head, int value, struct node **parent)
 {
 	if (head == NULL)
+    {
+        printf("HEAD is null\n");
                 return head;
+    }
         nodeptr current = head;
 
-        printf("search: %d HEAD: %d \n",value,  head->data);
         while (current)
         {
                 if (current->data == value) {
@@ -154,8 +160,10 @@ nodeptr delete_node(nodeptr head, int value)
         if (!temp)
                 temp = minimum_right_subtree(current, &parent);
         int var = temp->data;
+        int var_count = temp->count;
         temp->data = current->data;
         current->data = var;
+        current->count = var_count;
         current = temp;
 
     }
@@ -268,6 +276,7 @@ nodeptr successor(nodeptr head, int value)
         return succ;
 }
 
+/*
 int main()
 {
 	nodeptr head = NULL;
@@ -287,7 +296,7 @@ int main()
 	print_postorder(current);
 	printf("\n");
 	nodeptr temp = head;
-	head = delete_node(temp, 15);
+	delete_node(temp, 15);
 	print_inorder(temp);
 	printf("\n");
 	new = add_node(head, 15);
@@ -320,12 +329,13 @@ int main()
 		printf("Successor of %d is not present\n",q);
 	else
 		printf("Successor of %d is %d\n", q, temp->data);
-    head = delete_node(head, 10);
+    delete_node(head, 10);
 	print_inorder(head);
 	printf("\n");
-    head = delete_node(head, 8);
+    delete_node(head, 8);
 	print_inorder(head);
 	printf("\n");
 
 	return 0;
 }
+*/
