@@ -89,7 +89,7 @@ void delete_node(int value)
 {
 	nodeptr current = head;
 	nodeptr parent = head;
-	
+
 	if (head->data == value)
 	{
 		head = head->next;
@@ -110,7 +110,7 @@ void delete_node(int value)
 		{
 			parent =  current;
 			current = current->next;
-		}		
+		}
 	}
 	printf("Node with value: %d not found in list\n", value);
 }
@@ -137,10 +137,10 @@ void reverse_list_recursive(struct node** head)
 	if (current == NULL || rest == NULL)
 		return;
 
-	reverse_list_recursive(&rest);	
+	reverse_list_recursive(&rest);
 	current->next->next = current;
 	current->next = NULL;
-	*head = rest; 
+	*head = rest;
 }
 
 void reverse_list_iterative(struct node** head)
@@ -148,7 +148,7 @@ void reverse_list_iterative(struct node** head)
 	nodeptr previous = NULL;
 	nodeptr next = NULL;
 	nodeptr current = *head;
-	
+
 	while(current)
 	{
 		next = current->next;
@@ -159,8 +159,8 @@ void reverse_list_iterative(struct node** head)
 	*head = previous;
 }
 
-
-int main()
+/*
+ * int main()
 {
 	printf("Hello, World\n");
 	add_node_at_last(3);
@@ -183,7 +183,7 @@ int main()
 		printf("Value %d not found\n", find_position);
 	else
 		printf("Postion of %d is : %d\n",find_position, ret);
-	
+
 	reverse_list_iterative(&head);
 	print_list();
 	reverse_list_recursive(&head);
@@ -193,4 +193,4 @@ int main()
 	reverse_list_iterative(&head);
 	print_list();
 }
-
+*/
